@@ -14,11 +14,14 @@
     "@fontsource/roboto": "^5.2.5",
     "@mui/icons-material": "^6.4.7",
     "@mui/material": "^6.4.7",
+    "dotenv": "^16.4.7",
     "firebase": "^11.4.0",
     "firebaseui": "^6.1.0",
     "next": "15.2.2",
+    "prismjs": "^1.30.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-simple-code-editor": "^0.14.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

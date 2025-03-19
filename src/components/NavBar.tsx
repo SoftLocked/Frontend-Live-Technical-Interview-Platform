@@ -20,15 +20,15 @@ import { signOut } from 'firebase/auth';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Launch Interview'];
 const settings = ['Logout'];
 
-function ResponsiveAppBar() {
-    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+function NavBar() {
 
     const { user, logout } = useAuth();
-    const router = useRouter();
+
+    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -45,27 +45,15 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
-    const handleSignOut = async () => {
-        await signOut(auth);
-        router.push('/login');
-    };
-
-    useEffect(() => {
-        if (!user) {
-          router.push("/login"); // Redirect after component mounts
-        }
-      }, [user, router]); // Only runs when `user` or `router` changes
-    
-      if (!user) {
-        return <p>Redirecting...</p>; // Prevent rendering before redirect
-      }
+    console.log('test', user)
 
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
 
-
+                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                     </Box>
@@ -73,9 +61,9 @@ function ResponsiveAppBar() {
 
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
+                        <Tooltip title="Open profile">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                {user && user.displayName && user.photoURL && <Avatar alt={user.displayName} src={user.photoURL} /> }
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -95,7 +83,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleSignOut}>
+                                <MenuItem key={setting} onClick={logout}>
                                     <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
                                 </MenuItem>
                             ))}
@@ -108,4 +96,4 @@ function ResponsiveAppBar() {
         </AppBar>
     );
 }
-export default ResponsiveAppBar;
+export default NavBar;
