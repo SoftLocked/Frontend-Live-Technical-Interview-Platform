@@ -7,8 +7,12 @@ import React, { useEffect } from 'react';
 const Home = () => {
 
     
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const router = useRouter();
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     useEffect(() => {
         if (!user) {
@@ -17,12 +21,14 @@ const Home = () => {
     }, [user, router]); // Only runs when `user` or `router` changes
 
     if (!user) {
-    return <p>Redirecting...</p>; // Prevent rendering before redirect
+        return <p>Redirecting...</p>; // Prevent rendering before redirect
     }
 
     const handleRedirect = () => {
         router.push("/instructions");
     }
+
+    
 
     return (
     <React.Fragment>
