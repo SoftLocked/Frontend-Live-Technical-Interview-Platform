@@ -45,8 +45,6 @@ function NavBar() {
         setAnchorElUser(null);
     };
 
-    console.log('test', user)
-
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
